@@ -35,8 +35,10 @@ async def run_action():
     GITHUB_EVENT_NAME = os.environ.get('GITHUB_EVENT_NAME')
     GITHUB_EVENT_PATH = os.environ.get('GITHUB_EVENT_PATH')
     OPENAI_KEY = os.environ.get('OPENAI_KEY') or os.environ.get('OPENAI.KEY')
+    GOOGLE_AISTUDIO_KEY = os.environ.get('GOOGLE_AISTUDIO_KEY') or os.environ.get('GOOGLE_AI_STUDIO.KEY')
     OPENAI_ORG = os.environ.get('OPENAI_ORG') or os.environ.get('OPENAI.ORG')
     GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN')
+    MODEL = os.environ.get('CONFIG.MODEL')
     # get_settings().set("CONFIG.PUBLISH_OUTPUT_PROGRESS", False)
 
     # Check if required environment variables are set
@@ -53,11 +55,12 @@ async def run_action():
     # Set the environment variables in the settings
     if OPENAI_KEY:
         get_settings().set("OPENAI.KEY", OPENAI_KEY)
-    else:
-        # Might not be set if the user is using models not from OpenAI
-        print("OPENAI_KEY not set")
+    if GOOGLE_AISTUDIO_KEY:
+        get_settings().set("GOOGLE_AI_STUDIO.GEMINI_API_KEY", GOOGLE_AISTUDIO_KEY)
     if OPENAI_ORG:
         get_settings().set("OPENAI.ORG", OPENAI_ORG)
+    if MODEL:
+        get_settings().set("config.model", MODEL)
     get_settings().set("GITHUB.USER_TOKEN", GITHUB_TOKEN)
     get_settings().set("GITHUB.DEPLOYMENT_TYPE", "user")
     enable_output = get_setting_or_env("GITHUB_ACTION_CONFIG.ENABLE_OUTPUT", True)
