@@ -38,7 +38,7 @@ async def run_action():
     GOOGLE_AISTUDIO_KEY = os.environ.get('GOOGLE_AISTUDIO_KEY') or os.environ.get('GOOGLE_AI_STUDIO.KEY')
     OPENAI_ORG = os.environ.get('OPENAI_ORG') or os.environ.get('OPENAI.ORG')
     GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN')
-    MODEL = os.environ.get('CONFIG.MODEL')
+    MODEL = os.environ.get('MODEL')
     # get_settings().set("CONFIG.PUBLISH_OUTPUT_PROGRESS", False)
 
     # Check if required environment variables are set
@@ -54,8 +54,10 @@ async def run_action():
 
     # Set the environment variables in the settings
     if OPENAI_KEY:
+        print("Setting OPENAI.KEY")
         get_settings().set("OPENAI.KEY", OPENAI_KEY)
     if GOOGLE_AISTUDIO_KEY:
+        print("Setting GOOGLE_AI_STUDIO.GEMINI_API_KEY")
         get_settings().set("GOOGLE_AI_STUDIO.GEMINI_API_KEY", GOOGLE_AISTUDIO_KEY)
     if OPENAI_ORG:
         get_settings().set("OPENAI.ORG", OPENAI_ORG)
