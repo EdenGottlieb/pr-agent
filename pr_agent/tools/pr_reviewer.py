@@ -361,6 +361,8 @@ class PRReviewer:
                 # run keeps is the handle.
                 self._progress_response = progress_response
 
+            # PyGithub fetches diff files synchronously; keep large fetches off the webhook event loop.
+            await asyncio.to_thread(self.git_provider.get_diff_files)
             try:
                 await retry_with_fallback_models(self._prepare_prediction, model_type=ModelType.REGULAR,
                                                  git_provider=self.git_provider)
